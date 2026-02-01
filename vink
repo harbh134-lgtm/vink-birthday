@@ -1,130 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Vink 💖</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Kaitlin 🎈</title>
 
 <style>
-body{
-    margin:0;
-    overflow:hidden;
-    background:#ffd6e8;
-    font-family: 'Poppins', sans-serif;
-}
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: #ffdae9;
+        font-family: "Poppins", sans-serif;
+    }
 
-/* floating heart balloons */
-.heart {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: pink;
-    transform: rotate(45deg);
-    animation: floatUp linear infinite;
-}
-.heart:before,
-.heart:after{
-    content:'';
-    position:absolute;
-    width:40px;
-    height:40px;
-    background:inherit;
-    border-radius:50%;
-}
-.heart:before{ top:-20px; left:0; }
-.heart:after{ left:-20px; top:0; }
+    .balloon {
+        position: absolute;
+        width: 60px;
+        height: 80px;
+        background: pink;
+        border-radius: 50%;
+        animation: floatUp linear infinite;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-@keyframes floatUp{
-    from{ transform: translateY(100vh) rotate(45deg); }
-    to{ transform: translateY(-120px) rotate(45deg); }
-}
+    @keyframes floatUp {
+        from { transform: translateY(100vh); }
+        to { transform: translateY(-120px); }
+    }
 
-/* big tap heart */
-#tapHeart{
-    position: fixed;
-    left:50%;
-    top:55%;
-    transform:translate(-50%,-50%) rotate(45deg);
-    width:160px;
-    height:160px;
-    background:#ff4f9a;
-    cursor:pointer;
-    box-shadow:0 8px 18px rgba(0,0,0,0.3);
-}
-#tapHeart:before,
-#tapHeart:after{
-    content:'';
-    position:absolute;
-    width:160px;
-    height:160px;
-    background:#ff4f9a;
-    border-radius:50%;
-}
-#tapHeart:before{ top:-80px; left:0; }
-#tapHeart:after{ left:-80px; top:0; }
+    #tapBalloon {
+        position: fixed;
+        left: 50%;
+        top: 55%;
+        transform: translate(-50%, -50%);
+        width: 150px;
+        height: 190px;
+        background: #ff7ebd;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        color: white;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
 
-#tapText{
-    position:absolute;
-    width:100%;
-    height:100%;
-    transform:rotate(-45deg);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-size:26px;
-    font-weight:bold;
-}
-
-/* message */
-#message{
-    display:none;
-    position:fixed;
-    top:40%;
-    width:100%;
-    text-align:center;
-    font-size:38px;
-    font-weight:bold;
-    color:#ff1f7a;
-}
+    #message {
+        position: fixed;
+        top: 40%;
+        width: 100%;
+        text-align: center;
+        font-size: 45px;
+        font-weight: bold;
+        color: #ff2d90;
+        display: none;
+    }
 </style>
 </head>
-
 <body>
 
-<div id="tapHeart">
-    <div id="tapText">TAP 💗</div>
-</div>
+<div id="tapBalloon">TAP 🎈</div>
+<div id="message">🎉 Happy Birthday 🎂<br>
+Bugge Meri Vink 💖</div>
 
-<div id="message">
-    🎉 Happy Birthday 🎂<br>
-    Bugge Meri Vink 💖
-</div>
-
-<audio id="pop">
+<audio id="popSound">
     <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function spawnHeart(){
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.style.left = Math.random()*100 + "vw";
-    h.style.background = "hsl(" + Math.random()*360 + ",80%,75%)";
-    const speed = 4 + Math.random()*3;
-    h.style.animationDuration = speed + "s";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(), speed*1000);
+function spawnBalloon() {
+    const b = document.createElement("div");
+    b.classList.add("balloon");
+
+    // Random color
+    b.style.background = "hsl(" + Math.random()*360 + ", 80%, 80%)";
+
+    // Random horizontal position
+    b.style.left = Math.random() * 100 + "vw";
+
+    // Random speed
+    const speed = 4 + Math.random() * 3;
+    b.style.animationDuration = speed + "s";
+
+    document.body.appendChild(b);
+
+    // Remove balloon after animation
+    setTimeout(() => b.remove(), speed * 1000);
 }
 
-// lots of hearts
-setInterval(spawnHeart, 300);
+// Spawn balloons continuously
+setInterval(spawnBalloon, 500);
 
-const tap = document.getElementById("tapHeart");
+const tap = document.getElementById("tapBalloon");
 const msg = document.getElementById("message");
-const pop = document.getElementById("pop");
+const pop = document.getElementById("popSound");
 
-tap.onclick = ()=>{
+tap.onclick = () => {
     pop.play();
     tap.style.display = "none";
     msg.style.display = "block";
